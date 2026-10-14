@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RentCar Admin</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-icon">R</span><div><strong>RentCar</strong><small>ADMIN PANEL</small></div></div>
+    <nav>
+      <a class="nav-link active" href="#dashboard">▦ <span>Dashboard</span></a>
+      <a class="nav-link" href="#cars">🚘 <span>Data Mobil</span></a>
+      <a class="nav-link" href="#rentals">▤ <span>Data Penyewaan</span></a>
+    </nav>
+    <div class="sidebar-note"><strong>RentCar Admin</strong><p>Kelola mobil dan penyewaan dalam satu tempat.</p></div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <div><p class="eyebrow">SISTEM MANAJEMEN RENTAL</p><h1>Dashboard</h1></div>
+      <div class="admin-chip"><span class="avatar">A</span><div><strong>Admin</strong><small>Administrator</small></div></div>
+    </header>
+
+    <section id="dashboard" class="stats">
+      <article class="stat-card"><div class="stat-icon blue">🚘</div><div><p>Total Mobil</p><h2 id="totalCars">0</h2></div></article>
+      <article class="stat-card"><div class="stat-icon green">✓</div><div><p>Mobil Tersedia</p><h2 id="availableCars">0</h2></div></article>
+      <article class="stat-card"><div class="stat-icon orange">▤</div><div><p>Total Penyewaan</p><h2 id="totalRentals">0</h2></div></article>
+      <article class="stat-card"><div class="stat-icon purple">Rp</div><div><p>Potensi Pendapatan</p><h2 id="revenue">Rp0</h2></div></article>
+    </section>
+
+    <section id="cars" class="panel">
+      <div class="panel-heading">
+        <div><p class="eyebrow">INVENTARIS</p><h2>Data Mobil</h2><p class="muted">Kelola daftar mobil rental.</p></div>
+        <button class="button primary" id="openCarForm">＋ Tambah Mobil</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Mobil</th><th>Nomor Polisi</th><th>Harga / Hari</th><th>Status</th><th>Aksi</th></tr></thead>
+          <tbody id="carsTable"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section id="rentals" class="panel">
+      <div class="panel-heading">
+        <div><p class="eyebrow">TRANSAKSI</p><h2>Data Penyewaan</h2><p class="muted">Catat dan pantau penyewaan pelanggan.</p></div>
+        <button class="button primary" id="openRentalForm">＋ Tambah Penyewaan</button>
+      </div>
+      <div class="filters">
+        <input id="searchRental" type="search" placeholder="Cari nama pelanggan atau mobil...">
+        <select id="filterStatus" aria-label="Filter status">
+          <option value="Semua">Semua status</option><option>Berlangsung</option><option>Selesai</option>
+        </select>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>Pelanggan</th><th>Mobil</th><th>Tanggal Sewa</th><th>Durasi</th><th>Total Harga</th><th>Status</th><th>Aksi</th></tr></thead>
+          <tbody id="rentalsTable"></tbody>
+        </table>
+      </div>
+    </section>
+    <footer>© 2026 RentCar Admin · Website latihan untuk ujian</footer>
+  </main>
+
+  <dialog id="carDialog">
+    <form id="carForm" class="dialog-form">
+      <div class="dialog-heading"><div><p class="eyebrow">INVENTARIS</p><h2>Tambah Mobil</h2></div><button type="button" class="close-button" data-close="carDialog" aria-label="Tutup">×</button></div>
+      <label>Nama mobil<input name="name" required placeholder="Contoh: Toyota Avanza"></label>
+      <label>Nomor polisi<input name="plate" required placeholder="Contoh: B 1234 ABC"></label>
+      <label>Harga sewa per hari (Rp)<input name="price" type="number" min="1" required placeholder="350000"></label>
+      <div class="form-actions"><button type="button" class="button secondary" data-close="carDialog">Batal</button><button class="button primary" type="submit">Simpan Mobil</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="rentalDialog">
+    <form id="rentalForm" class="dialog-form">
+      <div class="dialog-heading"><div><p class="eyebrow">TRANSAKSI</p><h2>Tambah Penyewaan</h2></div><button type="button" class="close-button" data-close="rentalDialog" aria-label="Tutup">×</button></div>
+      <label>Nama pelanggan<input name="customer" required placeholder="Nama lengkap pelanggan"></label>
+      <label>Pilih mobil<select name="carId" id="rentalCarSelect" required></select></label>
+      <div class="form-grid">
+        <label>Tanggal sewa<input name="date" type="date" required></label>
+        <label>Durasi (hari)<input name="days" type="number" min="1" value="1" required></label>
+      </div>
+      <p class="price-preview" id="pricePreview">Total harga: Rp0</p>
+      <p class="form-hint">Mobil yang sedang disewa tidak dapat dipilih sampai statusnya selesai.</p>
+      <div class="form-actions"><button type="button" class="button secondary" data-close="rentalDialog">Batal</button><button class="button primary" type="submit">Simpan Penyewaan</button></div>
+    </form>
+  </dialog>
+  <div id="toast" class="toast" role="status"></div>
+  <script src="script.js"></script>
+</body>
+</html>
